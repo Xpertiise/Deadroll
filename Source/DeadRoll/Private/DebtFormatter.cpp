@@ -3,9 +3,12 @@
 
 #include "DeadRoll/Public/DebtFormatter.h"
 
-FString UDebtFormatting::FormatDebtDisplay(int32 DebtAmount) {
+UFUNCTION(BlueprintCallable, Category = "Debt")
+static FString FormatDebtDisplay(int32 DebtAmount) {
 	if (DebtAmount < 1000000) {
-		return FString::Printf(TEXT("%06d"), DebtAmount);
+		FString Formatted = FString::Printf(TEXT("%06d"), DebtAmount);
+		Formatted.InsertAt(3, TEXT(","));
+		return Formatted;
 	} else {
 		return FString::Printf(TEXT("%.2e"), (float)DebtAmount);
 	}
